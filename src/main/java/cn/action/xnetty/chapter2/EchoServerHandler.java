@@ -35,7 +35,7 @@ public class EchoServerHandler extends ChannelInboundHandlerAdapter {
     public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
         ByteBuf in = (ByteBuf) msg;
         LogUtil.info(logger, "Server received:{0}", in.toString(CharsetUtil.UTF_8));
-        ctx.write(in);
+        ctx.write(in.writeBytes("来自服务器的响应".getBytes()));
     }
 
     @Override
