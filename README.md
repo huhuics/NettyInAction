@@ -12,4 +12,15 @@
     - 至少一个`ChannelHandler`——该组件实现了服务器从客户端接收的数据的处理，即它的业务逻辑
     - 引导——这是配置服务器的启动代码
 4. Netty客户端锁涉及的两个主要代码部分也是业务逻辑和引导
-
+5. `Channel`, `EventLoop`, `ChannelFuture`可以被认为是Netty网络抽象的代表
+    - Channel----Socket
+    - EventLoop----控制流、多线程处理、并发
+        + 一个EventLoopGroup包含一个或多个EventLoop
+        + 一个EventLoop在它的生命周期内只和一个Thread绑定
+        + 所有由EventLoop处理的I/O事件都将在它专有的Thread上被处理
+        + 一个Channel在它的生命周期内只注册一个EventLoop
+        + 一个EventLoop可能会被分配一个或多个Channel
+    - ChannelFuture----异步通知
+6. `Bootstrap`--引导
+    - 用于客户端，简单地称为Bootstrap，连接到远程主机和端口，需要一个EventLoopGroup
+    - 用于服务器端，称为ServerBootstrap，绑定到一个本地端口，需要两个EventLoopGroup（可以是同一个实例）
