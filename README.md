@@ -24,3 +24,11 @@
 6. `Bootstrap`--引导
     - 用于客户端，简单地称为Bootstrap，连接到远程主机和端口，需要一个EventLoopGroup
     - 用于服务器端，称为ServerBootstrap，绑定到一个本地端口，需要两个EventLoopGroup（可以是同一个实例）
+7. Netty的Channel实现都是线程安全的，这意味着即使许多线程在使用同一个Channel，也不必担心同步问题
+8. Netty提供的几种传输    
+    + NIO:使用java.nio.channels包作为基础--基于选择器的方式
+    + epoll:由JNI驱动的epoll()和非阻塞IO，这个传输支持只有在Linux上可用的多种特性，比NIO传输更快，且完全非阻塞
+    + OIO:使用java.net包作为基础--使用阻塞流
+    + Local:可以在VM内部通过管道进行通信的本地传输
+    + Embedded:Embedded传输，允许使用ChannelHandler而又不需要一个真正的基于网络的传输
+9. Java NIO选择器(`Selector`)运行在一个检查状态变化并对其作出相应响应的线程上，在应用程序对状态的改变做出响应之后，选择器将会被重置，并将重复这个过程。
