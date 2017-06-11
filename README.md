@@ -32,3 +32,19 @@
     + Local:可以在VM内部通过管道进行通信的本地传输
     + Embedded:Embedded传输，允许使用ChannelHandler而又不需要一个真正的基于网络的传输
 9. Java NIO选择器(`Selector`)运行在一个检查状态变化并对其作出相应响应的线程上，在应用程序对状态的改变做出响应之后，选择器将会被重置，并将重复这个过程。
+10. `ByteBuf`内存模式
+    + 堆缓冲区
+        - 将数据存储在JVM的堆空间，能在没有使用池化的情况下提供快速的内存分配和释放
+    + 直接缓冲区
+        - 相对基于堆的缓冲区，主要缺点是分配和释放都比较昂贵
+    + 复合缓冲区
+11. `ByteBuf`读写操作
+    + `get()`和`set()`操作，从给定的索引开始，并且保持索引不变
+    + `read()`和`write()`操作，从给定索引开始，会根据已访问过的字节数对索引进行调整
+12. 在ChannelPipeline中将ChannelHandler链接在一起以组织处理逻辑，通过每一个ChannelHandler都是通过它的EventLoop(I/O线程)来处理传递给它的事件。
+13. 每一个新创建的Channel都将会被分配一个新的ChannelPipeline，这项关联是永久性的，Channel既不能附加另外一个ChannelPipeline也不能分离其当前的。
+14. `ChannelHandlerContext`代表了`ChannelHandler`和`ChannelPipeline`之间的关系，每当有ChannelHandler添加到ChannelPipeline中时，都会创建ChannelHandlerContext。ChannelHandlerContext主要功能是管理它所关联的ChannelHandler和在同一个ChannelPipeline中的其它ChannelHandler之间的交互。
+15. 一个ChannelHandler可以从属于多个ChannelPipeline，所以它也可以绑定到多个ChannelHandlerContext实例。用于这种用法的ChannelHandler必须要使用`@Sharable`注解标注。
+16. EventLoop实际上是对`java.util.concurrent.ScheduledExecutorService`的扩展，执行Runnable任务。
+17. 在Netty4中，所有的I/O操作和事件都由已经被分配给了EventLoop的那个Thread来处理。
+
