@@ -39,8 +39,8 @@
         - 相对基于堆的缓冲区，主要缺点是分配和释放都比较昂贵
     + 复合缓冲区
 11. `ByteBuf`读写操作
-    + `get()`和`set()`操作，从给定的索引开始，并且保持索引不变
-    + `read()`和`write()`操作，从给定索引开始，会根据已访问过的字节数对索引进行调整
+    + `get()`和`set()`操作，从给定的索引开始，并且保持索引不变
+    + `read()`和`write()`操作，从给定索引开始，会根据已访问过的字节数对索引进行调整
 12. 在ChannelPipeline中将ChannelHandler链接在一起以组织处理逻辑，通过每一个ChannelHandler都是通过它的EventLoop(I/O线程)来处理传递给它的事件。
 13. 每一个新创建的Channel都将会被分配一个新的ChannelPipeline，这项关联是永久性的，Channel既不能附加另外一个ChannelPipeline也不能分离其当前的。
 14. `ChannelHandlerContext`代表了`ChannelHandler`和`ChannelPipeline`之间的关系，每当有ChannelHandler添加到ChannelPipeline中时，都会创建ChannelHandlerContext。ChannelHandlerContext主要功能是管理它所关联的ChannelHandler和在同一个ChannelPipeline中的其它ChannelHandler之间的交互。
