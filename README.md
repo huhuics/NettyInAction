@@ -47,4 +47,11 @@
 15. 一个ChannelHandler可以从属于多个ChannelPipeline，所以它也可以绑定到多个ChannelHandlerContext实例。用于这种用法的ChannelHandler必须要使用`@Sharable`注解标注。
 16. EventLoop实际上是对`java.util.concurrent.ScheduledExecutorService`的扩展，执行Runnable任务。
 17. 在Netty4中，所有的I/O操作和事件都由已经被分配给了EventLoop的那个Thread来处理。
-
+18. EventLoopGroup负责为每个新创建的Channel分配一个EventLoop，使用顺序循环(round-robin)的方式进行分配以获取一个均衡的分布，并且相同的EventLoop可能会被分配给多个Channel，一旦一个Channel被分配给一个EventLoop，它将在它的整个生命周期中都使用这个EventLoop（以及相关联的Thread）。
+19. 引导(`Bootstrap`)是指对一个应用程序进行配置，并使它运行起来。
+20. 在引导过程中，在调用bind()或者connect()之前，必须调用一下方法来设置所需组件：
+    + group()
+    + channel()或者channelFactory()
+    + handler()
+21. ServerBootstrap在bind()方法被调用时创建了一个ServerChannel，并且该ServerChannel管理了多个Channel，这些Channel代表已被接受的连接。
+22. 编写Netty应用程序应该尽可能地重用EventLoop，以减少线程创建所带来的开销。
